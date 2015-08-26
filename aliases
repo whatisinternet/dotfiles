@@ -1,15 +1,55 @@
 # Unix
-alias ll="ls -al"
-alias ln="ln -v"
-alias mkdir="mkdir -p"
-alias e="$EDITOR"
-alias v="$VISUAL"
+alias tlf="tail -f"
+alias ln='ln -v'
+alias mkdir='mkdir -p'
+alias ...='../..'
+alias l='ls'
+alias ll='ls -al'
+alias lh='ls -Alh'
+alias -g G='| grep'
+alias -g M='| less'
+alias -g L='| wc -l'
+alias -g ONE="| awk '{ print \$1}'"
+alias e='$EDITOR'
+alias v='$VISUAL'
+alias a='echo "------------Your aliases------------";alias'
+alias hs='history | grep $1'
+alias :q='exit'
 
+# Rails
+alias RevP='RAILS_ENV=production '
+alias RevD='RAILS_ENV=development '
+alias RevT='RAILS_ENV=test '
+alias Rberac='bundle exec rake assets:clean'
+alias Rberap='bundle exec rake assets:precompile'
+alias Rgen='rails g '
+alias Rgeni='rails g migration'
+alias Rgenm='rails g model'
+alias Rgenc='rails g controller'
+alias Rgens='rails g scaffold'
+alias Rrem='rails d '
+alias Rremi='rails d migration'
+alias Rremm='rails d model'
+alias Rremc='rails d controller'
+alias Rrems='rails d scaffold'
+alias Rigem='gem install '
+alias Rbinst='bundle install'
+alias Rdm='rake db:migrate'
+alias Rdc='rake db:create'
+alias Rdr='rake db:rollback'
+alias Rds='rake db:seed'
+
+alias g='git'
 # Bundler
 alias b="bundle"
 
+# Tests and Specs
+alias t="ruby -I test"
+
 # Rails
 alias migrate="rake db:migrate db:rollback && rake db:migrate"
+alias m="migrate"
+alias rk="rake"
 alias s="rspec"
 
 # Pretty print the path

@@ -9,7 +9,7 @@ setopt promptsubst
 export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) %# '
 
 # load our own completion functions
-fpath=(~/.zsh/completion /usr/local/share/zsh/site-functions $fpath)
+fpath=(~/.zsh/completion $fpath)
 
 # completion
 autoload -U compinit
@@ -51,7 +51,6 @@ bindkey jj vi-cmd-mode
 # handy keybindings
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
-bindkey "^K" kill-line
 bindkey "^R" history-incremental-search-backward
 bindkey "^P" history-search-backward
 bindkey "^Y" accept-and-hold

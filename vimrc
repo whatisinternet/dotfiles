@@ -1,16 +1,26 @@
 " Leader
-let mapleader = " "
-
+syntax on
+set background=dark
+let mapleader = ","
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
-set history=50
+set history=5000
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
+set so=25
+set hlsearch
+set virtualedit=all
+set relativenumber
+" set lazyredraw
+set magic
+set showmatch
+set mat=2
+set cursorline
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -22,12 +32,8 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
-
 filetype plugin indent on
+
 
 augroup vimrcEx
   autocmd!
@@ -56,6 +62,7 @@ augroup vimrcEx
 
   " Allow stylesheets to autocomplete hyphenated words
   autocmd FileType css,scss,sass setlocal iskeyword+=-
+  autocmd FileType litcoffee runtime ftplugin/coffee.vim
 augroup END
 
 " Softtabs, 2 spaces
@@ -84,7 +91,7 @@ set textwidth=80
 set colorcolumn=+1
 
 " Numbers
-set number
+" set number
 set numberwidth=5
 
 " Tab completion
@@ -111,6 +118,9 @@ map <Leader>ct :!ctags -R .<CR>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+imap jj <Esc>
+
+nnoremap <silent><leader>n :set relativenumber!<cr>
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
@@ -138,11 +148,13 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+"NerdTree
+nnoremap <silent> <Leader>d :let NERDTreeQuitOnOpen = 1<bar>NERDTreeToggle<CR>
+nnoremap <silent> <Leader>D :let NERDTreeQuitOnOpen = 0<bar>NERDTreeToggle<CR>
+
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_eruby_ruby_quiet_messages =
-    \ {"regex": "possibly useless use of a variable in void context"}
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
@@ -153,6 +165,13 @@ set complete+=kspell
 
 " Always use vertical diffs
 set diffopt+=vertical
+
+set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim/
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme='wombat'
+let g:Powerline_colorscheme='wombat'
+
+set laststatus=2 "always show the statusline
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

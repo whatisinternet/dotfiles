@@ -43,6 +43,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/tComment'
+Plug 'scrooloose/nerdtree'
+Plug 'itchyny/lightline.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'whatisinternet/vim-auto-solarize', {'branch': 'Refactor__licence_and_main'}
+Plug 'rking/ag.vim'
+Plug 'rust-lang/rust.vim'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
