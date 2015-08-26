@@ -49,6 +49,14 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'whatisinternet/vim-auto-solarize', {'branch': 'Refactor__licence_and_main'}
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'LucHermitte/lh-dev'
+Plug 'LucHermitte/lh-tags'
+Plug 'LucHermitte/lh-vim-lib'
+Plug 'LucHermitte/vim-refactor'
+Plug 'lambdatoast/elm.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'garbas/vim-snipmate'
+Plug 'fatih/vim-go'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
