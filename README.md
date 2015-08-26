@@ -1,5 +1,6 @@
-thoughtbot dotfiles
-===================
+whatisinternet  dotfiles
+=======================
+A fork of thoughtbot dotfiles
 
 Requirements
 ------------
@@ -217,17 +218,3 @@ redistributed under the terms specified in the [`LICENSE`] file.
 
 [`LICENSE`]: /LICENSE
 
-About thoughtbot
-----------------
-
-![thoughtbot](https://thoughtbot.com/logo.png)
-
-dotfiles is maintained and funded by thoughtbot, inc.
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-We love open source software!
-See [our other projects][community].
-We are [available for hire][hire].
-
-[community]: https://thoughtbot.com/community?utm_source=github
-[hire]: https://thoughtbot.com/hire-us?utm_source=github

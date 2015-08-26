@@ -23,7 +23,6 @@ endfunction
 
 com! -nargs=+  -bar Plugin call VundleToPlug("Plugin", <args>)
 com! -nargs=+  -bar Bundle call VundleToPlug("Bundle", <args>)
-
 call plug#begin('~/.vim/bundle')
 
 " Define bundles via Github repos
