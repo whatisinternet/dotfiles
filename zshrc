@@ -5,8 +5,52 @@ git_prompt_info() {
     echo " %{$fg_bold[green]%}$current_branch%{$reset_color%}"
   fi
 }
+
+
+autoload colors; colors;
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+setopt prompt_subst
+
+# prompt
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[blue]%}on "
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ✘%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+# show git branch/tag, or name-rev if on detached head
+parse_git_branch() {
+  (command git symbolic-ref -q HEAD || command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
+}
+
+# show red star if there are uncommitted changes
+parse_git_dirty() {
+  if command git diff-index --quiet HEAD 2> /dev/null; then
+    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+  else
+    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
+  fi
+}
+
+# if in a git repo, show dirty indicator + git branch
+git_custom_status() {
+  local git_where="$(parse_git_branch)"
+  [ -n "$git_where" ] && echo "$ZSH_THEME_GIT_PROMPT_PREFIX${git_where#(refs/heads/|tags/)}$ZSH_THEME_GIT_PROMPT_SUFFIX$(parse_git_dirty)"
+}
+
+
+# basic prompt on the left
 setopt promptsubst
-export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) %# '
+export PS1='%{$fg[blue]%}%~% %(?.%{$fg[white]%}.%{$fg[cyan]%})%B $(git_custom_status) %# '
+export RPS1=''
+
+# export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) %# '
+
+
+if [ "${TERM}" = 'rxvt-256color' ] && ! [ -f '/usr/share/terminfo/r/rxvt-256color' ] && ! [ -f '/lib/terminfo/r/rxvt-256color' ] && ! [ -f "${HOME}/.terminfo/r/rxvt-256color" ]; then
+  export TERM='rxvt-unicode'
+fi
+
 
 # load our own completion functions
 fpath=(~/.zsh/completion $fpath)
