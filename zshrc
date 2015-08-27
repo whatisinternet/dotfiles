@@ -13,8 +13,8 @@ setopt prompt_subst
 
 # prompt
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[blue]%}on "
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[white]%}on %{$reset_color%}%{$fg[magenta]%}%U"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%U%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ✘%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
