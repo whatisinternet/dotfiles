@@ -16,11 +16,16 @@ set so=25
 set hlsearch
 set virtualedit=all
 set relativenumber
-" set lazyredraw
+set lazyredraw
 set magic
 set showmatch
 set mat=2
 set cursorline
+set smartcase
+set smarttab
+setlocal spell
+setlocal spell spelllang=en_ca
+set ttimeoutlen=50
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -73,6 +78,12 @@ set expandtab
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
+
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" bind \ (backward slash) to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
