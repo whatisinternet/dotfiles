@@ -26,6 +26,7 @@ set smarttab
 setlocal spell
 setlocal spell spelllang=en_ca
 set ttimeoutlen=50
+set autochdir " Automatically change working directory to last file opened
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
