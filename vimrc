@@ -1,31 +1,31 @@
 " Leader
 syntax on
-set background=dark
-let mapleader = ","
+set background=dark "Default to dark -- don't worry it'll switch with auto-solarize-vim
+let mapleader = "," "<space> is equally valid
 set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
+set nobackup      " Remove the useless ~backup file
 set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
-set history=5000
+set history=5000  " Make history huge
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 set so=25
-set hlsearch
-set virtualedit=all
-set relativenumber
+set hlsearch      " Highlight searches
+set virtualedit=all " Move the cursor all over the screen
+set relativenumber  " Always keep zero on your cursor
 set lazyredraw
-set magic
-set showmatch
+set magic           " Searching and matching make use of /\
+set showmatch       " Make a quick jump back and highlight on brackets
 set mat=2
-set cursorline
-set smartcase
-set smarttab
+set cursorline      " Keep a background lighter on the current cursor
+set smartcase       " Searching fixes see :h smartcase
+set smarttab        " Tab in correctly.
 setlocal spell
 setlocal spell spelllang=en_ca
-set ttimeoutlen=50
+set ttimeoutlen=50 " Make typing faster
 set autochdir " Automatically change working directory to last file opened
 
 " Switch syntax highlighting on, when the terminal has colors
