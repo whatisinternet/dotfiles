@@ -53,6 +53,10 @@ alias m="migrate"
 alias rk="rake"
 alias s="rspec"
 
+# Postgres
+alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
