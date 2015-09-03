@@ -41,6 +41,25 @@ endif
 filetype plugin indent on
 
 
+" Remove trailing whitespace when a file is saved
+" Source: <http://vim.wikia.com/wiki/Remove_unwanted_spaces>
+function! TrimWhiteSpace()
+  " Do not record the whitespace removal in the undo history
+  " Source: <http://vim.1045645.n5.nabble.com/there-s-undojoin-how-about-dotjoin-td1203135.html>
+  try
+    undojoin
+  catch
+    " Probably an undo was just issued, and so there's no way to join the undo.
+    " Which sucks.
+  endtry
+  %s/\s*$//
+  ''
+endfunction
+autocmd! FileWritePre * :call TrimWhiteSpace()
+autocmd! FileAppendPre * :call TrimWhiteSpace()
+autocmd! FilterWritePre * :call TrimWhiteSpace()
+autocmd! BufWritePre * :call TrimWhiteSpace()
+
 augroup vimrcEx
   autocmd!
 
