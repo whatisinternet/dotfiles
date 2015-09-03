@@ -1,5 +1,6 @@
 " Leader
 syntax on
+set ttyfast         " Smooth
 set background=dark "Default to dark -- don't worry it'll switch with auto-solarize-vim
 let mapleader = "," "<space> is equally valid
 set backspace=2   " Backspace deletes like most programs in insert mode
@@ -27,6 +28,104 @@ setlocal spell
 setlocal spell spelllang=en_ca
 set ttimeoutlen=50 " Make typing faster
 set autochdir " Automatically change working directory to last file opened
+set pastetoggle=<F11> " Use <F11> to toggle between 'paste' and 'nopaste'
+set laststatus=1 "always show the statusline
+"
+" Softtabs, 2 spaces
+set tabstop=2
+set shiftwidth=2
+set shiftround
+set expandtab
+"
+" Make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+"
+" Numbers
+" set number
+set numberwidth=5
+"
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+"
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+"
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
+"
+" Autocomplete with dictionary words when spell check is on
+set complete+=kspell
+"
+" Always use vertical diffs
+set diffopt+=vertical
+
+autocmd! FileWritePre * :call TrimWhiteSpace()
+autocmd! FileAppendPre * :call TrimWhiteSpace()
+autocmd! FilterWritePre * :call TrimWhiteSpace()
+autocmd! BufWritePre * :call TrimWhiteSpace()
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" bind \ (backward slash) to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <c-n>
+
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+
+" Index ctags from any project, including those outside Rails
+map <Leader>ct :!ctags -R .<CR>
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+imap jj <Esc> " You dont need to use esc to esc. just jj
+
+nnoremap <silent><leader>n :set relativenumber!<cr>
+" Get off my lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" vim-rspec mappings
+nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+nnoremap <Leader>s :call RunNearestSpec()<CR>
+nnoremap <Leader>l :call RunLastSpec()<CR>
+
+" Run commands that require an interactive shell
+nnoremap <Leader>r :RunInInteractiveShell<space>
+
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+"NerdTree
+nnoremap <silent> <Leader>d :let NERDTreeQuitOnOpen = 1<bar>NERDTreeToggle<CR>
+nnoremap <silent> <Leader>D :let NERDTreeQuitOnOpen = 0<bar>NERDTreeToggle<CR>
+
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim/
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme='wombat'
+let g:Powerline_colorscheme='wombat'
+
+filetype plugin indent on
+
+
+" ==================================================================
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -37,8 +136,6 @@ endif
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
-
-filetype plugin indent on
 
 
 " Remove trailing whitespace when a file is saved
@@ -55,10 +152,6 @@ function! TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
-autocmd! FileWritePre * :call TrimWhiteSpace()
-autocmd! FileAppendPre * :call TrimWhiteSpace()
-autocmd! FilterWritePre * :call TrimWhiteSpace()
-autocmd! BufWritePre * :call TrimWhiteSpace()
 
 augroup vimrcEx
   autocmd!
@@ -90,20 +183,7 @@ augroup vimrcEx
   autocmd FileType litcoffee runtime ftplugin/coffee.vim
 augroup END
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
 
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-" bind \ (backward slash) to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -117,13 +197,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
-
-" Numbers
-" set number
-set numberwidth=5
 
 " Tab completion
 " will insert tab at beginning of line,
@@ -137,70 +210,6 @@ function! InsertTabWrapper()
         return "\<c-p>"
     endif
 endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
-
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
-
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
-
-imap jj <Esc>
-
-nnoremap <silent><leader>n :set relativenumber!<cr>
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
-" vim-rspec mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-
-" Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<space>
-
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
-"NerdTree
-nnoremap <silent> <Leader>d :let NERDTreeQuitOnOpen = 1<bar>NERDTreeToggle<CR>
-nnoremap <silent> <Leader>D :let NERDTreeQuitOnOpen = 0<bar>NERDTreeToggle<CR>
-
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-
-" Set spellfile to location that is guaranteed to exist, can be symlinked to
-" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-set spellfile=$HOME/.vim-spell-en.utf-8.add
-
-" Autocomplete with dictionary words when spell check is on
-set complete+=kspell
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim/
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme='wombat'
-let g:Powerline_colorscheme='wombat'
 
 set laststatus=2 "always show the statusline
 
