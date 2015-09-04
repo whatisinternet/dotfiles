@@ -1,4 +1,3 @@
-" Leader
 syntax on
 set ttyfast         " Smooth
 set background=dark "Default to dark -- don't worry it'll switch with auto-solarize-vim
