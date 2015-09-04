@@ -26,7 +26,6 @@ set smarttab        " Tab in correctly.
 setlocal spell
 setlocal spell spelllang=en_ca
 set ttimeoutlen=50 " Make typing faster
-set autochdir " Automatically change working directory to last file opened
 set pastetoggle=<F11> " Use <F11> to toggle between 'paste' and 'nopaste'
 set laststatus=1 "always show the statusline
 "
