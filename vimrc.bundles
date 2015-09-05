@@ -42,8 +42,8 @@ Plug 'lambdatoast/elm.vim'
 Plug 'davidbeckingsale/writegood.vim'  " English is hard
 "
 " Supercharged autocomplete for html
-plug 'mattn/emmet-vim'
-plug 'mattn/webapi-vim'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/webapi-vim'
 "
 " Searching
 Plug 'rking/ag.vim'                    " The silver searcher -- needs OS install
