@@ -57,7 +57,7 @@ Plug 'whatisinternet/vim-auto-solarize'
 " Git
 Plug 'tpope/vim-fugitive'
 "
-Dev
+" Dev
 Plug 'christoomey/vim-run-interactive' "Provides interactive shell from leader r
 Plug 'pbrisbin/vim-mkdir' " Provides auto path creation on :e
 Plug 'scrooloose/syntastic' " Syntax checker
