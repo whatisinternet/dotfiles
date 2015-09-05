@@ -115,11 +115,23 @@ nnoremap <silent> <Leader>D :let NERDTreeQuitOnOpen = 0<bar>NERDTreeToggle<CR>
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim/
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme='wombat'
-let g:Powerline_colorscheme='wombat'
-
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ }
+      \}
 filetype plugin indent on
 
 
