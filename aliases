@@ -39,6 +39,7 @@ alias Rdm='rake db:migrate'
 alias Rdc='rake db:create'
 alias Rdr='rake db:rollback'
 alias Rds='rake db:seed'
+alias be='bundle exec'
 
 alias g='git'
 # Bundler
