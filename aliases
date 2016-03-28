@@ -16,6 +16,7 @@ alias v='$VISUAL'
 alias a='echo "------------Your aliases------------";alias'
 alias hs='history | grep $1'
 alias :q='exit'
+alias please='sudo'
 
 # Rails
 alias RevP='RAILS_ENV=production '
@@ -40,6 +41,7 @@ alias Rdc='rake db:create'
 alias Rdr='rake db:rollback'
 alias Rds='rake db:seed'
 alias be='bundle exec'
+alias fs='foreman start'
 
 alias g='git'
 # Bundler
