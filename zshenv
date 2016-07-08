@@ -15,3 +15,5 @@ export PATH=".git/safe/../../bin:$PATH"
 
 # Local config
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
+
+export PATH="$HOME/.rbenv/bin:$PATH"

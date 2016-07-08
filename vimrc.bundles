@@ -40,6 +40,7 @@ Plug 'fatih/vim-go'
 Plug 'slim-template/vim-slim'
 Plug 'lambdatoast/elm.vim'
 Plug 'klen/python-mode'
+Plug 'keith/swift.vim'
 Plug 'davidbeckingsale/writegood.vim'  " English is hard
 "
 " Supercharged autocomplete for html

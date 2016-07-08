@@ -60,6 +60,9 @@ alias s="rspec"
 alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
+# Kill rubies
+alias killPortRuby='kill -9 $(lsof -i :3000 | grep ruby | grep -oEi " (\d{5,}) " | grep -oEi "(\d+)")'
+
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
