@@ -58,7 +58,7 @@ Plug 'rking/ag.vim'                    " The silver searcher -- needs OS install
 Plug 'ctrlpvim/ctrlp.vim'              " Super fast search bound to <C-p>
 Plug 'scrooloose/nerdtree'             " folder navigation ala most IDE setups
 Plug 'Xuyuanp/nerdtree-git-plugin'     " Adds git flags to files in nerd tree
-Plug 'unblevable/quick-scope'          " Hinting for left right movement.
+" Plug 'unblevable/quick-scope'          " Hinting for left right movement.
 "
 " Status
 Plug 'itchyny/lightline.vim'           " Adds a nice statusbar
