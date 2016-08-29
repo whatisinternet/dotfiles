@@ -128,7 +128,7 @@ let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 let g:pymode_folding = 0
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'onehalfdark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
