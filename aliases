@@ -44,7 +44,7 @@ alias be='bundle exec'
 alias fs='foreman start'
 
 alias g='git'
-alias gprune=git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
+alias gprune='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 
 # Bundler
 alias b="bundle"
