@@ -15,6 +15,7 @@ gem 'active_model_serializers'
 gem 'slim-rails'
 gem 'simple_form'
 
+
 gem_group :development do
   gem 'quiet_assets'
 end
@@ -29,7 +30,7 @@ gem_group :development, :test do
 end
 
 gem_group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'faker'
@@ -42,10 +43,21 @@ gem_group :production do
 end
 
 run "rm README.rdoc"
+run "rm README.md"
 run "echo '# #{app_name.titleize}' >> README.md"
 
+run "rm -r test"
+
 run "bundle install"
+
 rake("db:create")
+
+generate("rspec:install")
+generate("simple_form:install")
+run "bundle exec guard init rspec"
+run "gem install html2slim"
+
+run "erb2slim . -d"
 
 run "touch .ruby-version"
 append_file ".ruby-version", "2.3.1"
