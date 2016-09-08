@@ -1,2 +1,6 @@
--T #Skip Test-Unit
--d postgresql #Use postgres
+--database=postgresql
+--skip-bundle
+--skip-spring
+--skip-test-unit
+--skip-turbolinks
+--template=~/dotfiles/templates/rails.rb
