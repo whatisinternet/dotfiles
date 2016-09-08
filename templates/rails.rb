@@ -45,11 +45,9 @@ run "rm README.rdoc"
 run "echo '# #{app_name.titleize}' >> README.md"
 
 run "bundle install"
-generate("rspec:install")
 rake("db:create")
 
 run "touch .ruby-version"
 append_file ".ruby-version", "2.3.1"
-
 
 run "git init"
