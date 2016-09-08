@@ -17,6 +17,8 @@ alias a='echo "------------Your aliases------------";alias'
 alias hs='history | grep $1'
 alias :q='exit'
 alias please='sudo'
+alias tms='tmuxinator start'
+alias tml='tmuxinator start'
 
 # Rails
 alias RevP='RAILS_ENV=production '
