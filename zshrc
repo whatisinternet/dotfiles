@@ -145,6 +145,5 @@ eval "$(rbenv init -)"
 
 # TMUX configs
 source ~/.bin/tmuxinator.zsh
-source $HOME/.cargo/env
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
