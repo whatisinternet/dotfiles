@@ -1,45 +1,45 @@
 run "rm Gemfile"
 run "touch Gemfile"
 
-add_source 'http://rubygems.org'
+add_source 'https://rubygems.org' do
 
-gem 'rails', '4.2.7'
-gem 'pg'
+  gem 'rails', '5.0.0.1'
+  gem 'pg'
 
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
+  gem 'sass-rails'
+  gem 'uglifier'
+  gem 'coffee-rails'
+  gem 'jquery-rails'
+  gem "autoprefixer-rails"
 
-gem 'active_model_serializers'
-gem 'slim-rails'
-gem 'simple_form'
+  gem 'delayed_job_active_record'
+  gem 'active_model_serializers'
+  gem 'slim-rails'
+  gem 'simple_form'
 
 
-gem_group :development do
-  gem 'quiet_assets'
-end
+  gem_group :development, :test do
+    gem 'awesome_print'
+    gem 'dotenv-rails'
+    gem 'pry'
+    gem 'pry-rails'
+    gem 'annotate'
+    gem 'guard-rspec', require: false
+    gem 'bullet'
+    gem 'rack-mini-profiler', require: false
+  end
 
-gem_group :development, :test do
-  gem 'dotenv-rails'
-  gem 'pry'
-  gem 'pry-rails'
-  gem 'annotate'
-  gem 'guard-rspec', require: false
-  gem 'bullet'
-end
+  gem_group :test do
+    gem 'rspec-rails', '~> 3.0'
+    gem 'factory_girl_rails'
+    gem 'shoulda-matchers'
+    gem 'faker'
+    gem 'database_cleaner'
+  end
 
-gem_group :test do
-  gem 'rspec-rails', '~> 3.0'
-  gem 'factory_girl_rails'
-  gem 'shoulda-matchers'
-  gem 'faker'
-  gem 'database_cleaner'
-end
-
-gem_group :production do
-  gem 'puma'
-  gem 'rails_12factor'
+  gem_group :production do
+    gem 'puma'
+  end
 end
 
 run "rm README.rdoc"
@@ -53,7 +53,10 @@ run "bundle install"
 rake("db:create")
 
 generate("rspec:install")
+run "bundle binstubs rspec-core"
+
 generate("simple_form:install")
+
 run "bundle exec guard init rspec"
 run "gem install html2slim"
 
