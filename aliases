@@ -19,6 +19,7 @@ alias :q='exit'
 alias please='sudo'
 alias tms='tmuxinator start'
 alias tml='tmuxinator start'
+alias ag='rg'
 
 # Rails
 alias RevP='RAILS_ENV=production '

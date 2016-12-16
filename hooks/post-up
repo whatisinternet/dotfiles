@@ -7,4 +7,6 @@ if [ ! -e $HOME/.vim/autoload/plug.vim ]; then
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 vim -u $HOME/.vimrc.bundles +PlugInstall +PlugClean! +qa
+brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git
+brew install burntsushi/ripgrep/ripgrep-bin
 gem install tmuxinator
