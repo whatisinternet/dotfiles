@@ -64,9 +64,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'     " Adds git flags to files in nerd tree
 Plug 'itchyny/lightline.vim'           " Adds a nice statusbar
 "
 " Colours
-Plug 'sonph/onehalf', { 'rtp': 'vim' }" Theme
+Plug 'altercation/vim-colors-solarized' " Theme
 Plug 'sonph-forks/lightline.vim'
-Plug 'whatisinternet/vim-auto-onehalf'" Changes background light / dark based on time
+Plug 'whatisinternet/vim-auto-solarize' " Changes background light / dark based on time
 "
 " Git
 Plug 'tpope/vim-fugitive'              " The best git plugin
