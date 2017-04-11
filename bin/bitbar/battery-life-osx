@@ -1,0 +1,11 @@
+#!/bin/bash
+# <bitbar.title>Battery Indicator</bitbar.title>
+# <bitbar.version>v0.2</bitbar.version>
+# <bitbar.author>Josh Teeter</bitbar.author>
+# <bitbar.author.github>whatisinternet</bitbar.author.github>
+# <bitbar.desc>Get your battery life indicator in the menu bar</bitbar.desc>
+if $(pmset -g batt | grep -qoEi "discharging"); then
+  echo $(pmset -g batt | grep -oEi "(\d{0,}:\d{0,} remaining)")
+else
+  echo ":zap:"
+fi
