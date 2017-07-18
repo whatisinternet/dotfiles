@@ -28,6 +28,7 @@ setlocal spell spelllang=en_ca
 set ttimeoutlen=50 " Make typing faster
 set pastetoggle=<F11> " Use <F11> to toggle between 'paste' and 'nopaste'
 set laststatus=1 "always show the statusline
+set regexpengine=2
 "
 " Softtabs, 2 spaces
 set tabstop=2
@@ -64,7 +65,8 @@ autocmd! FileWritePre * :call TrimWhiteSpace()
 autocmd! FileAppendPre * :call TrimWhiteSpace()
 autocmd! FilterWritePre * :call TrimWhiteSpace()
 autocmd! BufWritePre * :call TrimWhiteSpace()
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" nnoremap K :Ag "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ag <C-R>=expand("<cword>")<CR><CR>
 
 " bind \ (backward slash) to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
@@ -219,6 +221,30 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+noremap <c-p> :Files<cr>
+let g:fzf_layout = { 'down': '~15%' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --no-ignore '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 
 " Tab completion

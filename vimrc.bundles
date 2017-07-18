@@ -42,23 +42,21 @@ Plug 'lambdatoast/elm.vim'
 Plug 'klen/python-mode'
 Plug 'keith/swift.vim'
 Plug 'davidbeckingsale/writegood.vim'  " English is hard
-"
-" Supercharged autocomplete for html
-Plug 'mattn/emmet-vim'
-Plug 'mattn/webapi-vim'
+Plug 'raimondi/delimitmate'
 "
 " Searching
-Plug 'rking/ag.vim'                    " The silver searcher -- needs OS install
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Plug 'rking/ag.vim'                    " The silver searcher -- needs OS install
 "                                           :Ag {search term} To start a search
 "                                           \ will auto type :Ag for you
 "                                           K will search what's under your
 "                                           cursor
 "
 " Navigation
-Plug 'ctrlpvim/ctrlp.vim'              " Super fast search bound to <C-p>
+" Plug 'ctrlpvim/ctrlp.vim'              " Super fast search bound to <C-p>
 Plug 'scrooloose/nerdtree'             " folder navigation ala most IDE setups
 Plug 'Xuyuanp/nerdtree-git-plugin'     " Adds git flags to files in nerd tree
-" Plug 'unblevable/quick-scope'          " Hinting for left right movement.
 "
 " Status
 Plug 'itchyny/lightline.vim'           " Adds a nice statusbar
@@ -70,12 +68,13 @@ Plug 'whatisinternet/vim-auto-solarize' " Changes background light / dark based 
 "
 " Git
 Plug 'tpope/vim-fugitive'              " The best git plugin
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 "
 " Dev
 Plug 'christoomey/vim-run-interactive' "Provides interactive shell from leader r
 Plug 'pbrisbin/vim-mkdir'              " Provides auto path creation on :e
-Plug 'scrooloose/syntastic'            " Syntax checker
+" Plug 'scrooloose/syntastic'            " Syntax checker
+Plug 'w0rp/ale'
 Plug 'tpope/vim-unimpaired'            " bracket mappings like ]q for :cnext
 Plug 'tpope/vim-jdaddy'                " json manipulation gqaj pretty prints :)
 Plug 'tpope/vim-abolish'               " crc for camel case and crs for snake. Also nice searching/replace tools
@@ -85,10 +84,6 @@ Plug 'tpope/vim-endwise'               " Auto add end to blocks etc.
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-repeat'                " Lets plugins use .
 Plug 'tpope/vim-surround'              " Auto brackets
-Plug 'LucHermitte/vim-refactor'        " Refactoring and method extracting help
-Plug 'LucHermitte/lh-dev'              " ^   |- C-Xf extract fn, C-Xv ex var
-Plug 'LucHermitte/lh-tags'             "  ^
-Plug 'LucHermitte/lh-vim-lib'          "   ^
 Plug 'vim-scripts/tComment'            " Useful for commenting out lines
 
 if filereadable(expand("~/.vimrc.bundles.local"))

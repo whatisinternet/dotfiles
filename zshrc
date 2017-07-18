@@ -13,7 +13,7 @@ setopt prompt_subst
 
 # prompt
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[white]%}on %{$reset_color%}%{$fg[magenta]%}%U"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[white]%}on %{$reset_color%}%{$fg[cyan]%}%U"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%U%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ✘%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -142,8 +142,13 @@ _load_settings "$HOME/.zsh/configs"
 source ~/.bin/tmuxinator.zsh
 
 eval "$(rbenv init -)"
+source $HOME/.cargo/env
 
 # TMUX configs
 source ~/.bin/tmuxinator.zsh
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+export PATH="$HOME/.yarn/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
