@@ -23,10 +23,13 @@
   ci = commit -v
   co = checkout
   st = status
+  rebae = rebase
+  reabse = rebase
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
   editor = vim
+  commitGraph = true
 [commit]
   template = ~/.gitmessage
 [fetch]
@@ -35,3 +38,9 @@
   autosquash = true
 [include]
   path = ~/.gitconfig.local
+[diff]
+  algorithm = patience
+[protocol]
+  version = 2
+[gc]
+  writeCommitGraph = true

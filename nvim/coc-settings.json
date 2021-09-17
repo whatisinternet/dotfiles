@@ -1,0 +1,7 @@
+{
+  "codeLens.enable": true,
+  "suggest.echodocSupport": true,
+  "suggest.maxCompleteItemCount": 20,
+  "solargraph.useBundler": false,
+  "diagnostic.displayByAle": true,
+}

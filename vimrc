@@ -1,3 +1,4 @@
+" Some areas of these dotfiles are clones from the thoughtbot dotifles https://github.com/thoughtbot/dotfiles used under MIT. See https://github.com/thoughtbot/dotfiles/blob/master/LICENSE
 syntax on
 set ttyfast         " Smooth
 set background=dark "Default to dark -- don't worry it'll switch with auto-solarize-vim
@@ -15,7 +16,7 @@ set autowrite     " Automatically :write before running commands
 set so=25
 set hlsearch      " Highlight searches
 set virtualedit=all " Move the cursor all over the screen
-set relativenumber  " Always keep zero on your cursor
+set number " Always keep zero on your cursor
 set lazyredraw
 set magic           " Searching and matching make use of /\
 set showmatch       " Make a quick jump back and highlight on brackets
@@ -28,6 +29,8 @@ setlocal spell spelllang=en_ca
 set ttimeoutlen=50 " Make typing faster
 set pastetoggle=<F11> " Use <F11> to toggle between 'paste' and 'nopaste'
 set laststatus=1 "always show the statusline
+set regexpengine=1
+set re=1
 "
 " Softtabs, 2 spaces
 set tabstop=2
@@ -60,26 +63,35 @@ set complete+=kspell
 " Always use vertical diffs
 set diffopt+=vertical
 
+" Copy filepath to clipboard
+nmap <leader>cfn :call system("pbcopy", expand("%:p"))<CR>
+nmap <leader>cfwn :call system("pbcopy", expand("%:p") . ':' . line('.'))<CR>
+
+
 autocmd! FileWritePre * :call TrimWhiteSpace()
 autocmd! FileAppendPre * :call TrimWhiteSpace()
 autocmd! FilterWritePre * :call TrimWhiteSpace()
 autocmd! BufWritePre * :call TrimWhiteSpace()
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" nnoremap K :Ag "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ag <C-R>=expand("<cword>")<CR><CR>
 
 " bind \ (backward slash) to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
+" inoremap <Tab> <c-p>
+" inoremap <S-Tab> <c-n>
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+
 
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
+" Highlight searches, but clear highlight on //.
+nmap // :noh<CR>
 
 imap jj <Esc> " You dont need to use esc to esc. just jj
 
@@ -94,9 +106,19 @@ nnoremap <Down> :echoe "Use j"<CR>
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
+" nnoremap <Leader>s :TestNearest<CR>
+" nnoremap <Leader>t :TestFile<CR>
+" nnoremap <Leader>l :TestLast<CR>
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
+
+" Create new tab
+nnoremap <Leader>tc :tabnew<CR>
+nnoremap <Leader>1 1gt<CR>
+nnoremap <Leader>2 2gt<CR>
+nnoremap <Leader>3 3gt<CR>
+nnoremap <Leader>4 4gt<CR>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -115,6 +137,28 @@ nnoremap <silent> <Leader>D :let NERDTreeQuitOnOpen = 0<bar>NERDTreeToggle<CR>
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" ALE
+let g:ale_set_balloons = 1
+" let g:ale_ruby_rubocop_options = '-f --display-cop-names --rails'
+" let g:ale_completion_enabled = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_virtualenv_dir_names = []
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'typescript': ['tslint', 'eslint'],
+\   'ruby': ['rubocop'],
+\   'markdown': ['prettier'],
+\   'graphql': ['prettier'],
+\   'yaml': ['prettier'],
+\   'yml': ['prettier'],
+\}
+
+
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -128,7 +172,7 @@ let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 let g:pymode_folding = 0
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -206,18 +250,90 @@ augroup vimrcEx
 augroup END
 
 
+autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
+command! -bang -nargs=* FILES
+  \ call fzf#vim#files(<q-args>)
+
+command! -bang -nargs=* RGFILES
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden'.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Use FZF for ctrlp ctrl-p ag
+nnoremap <c-p> :FILES<cr>
+nmap <C-L> :RGFILES<CR>
+let g:fzf_layout = { 'down': '~15%' }
+" nnoremap <c-p> :Files<cr>
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg="rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden"
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" noremap <c-p> :Files<cr>
+let g:fzf_layout = { 'down': '~15%' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+set grepprg=rg\ --vimgrep
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --no-ignore --hidden'.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 
 " Tab completion
@@ -227,13 +343,30 @@ set wildmode=list:longest,list:full
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
+        return "\<Tab>"
     else
-        return "\<c-p>"
+        return "\<C-p>"
     endif
 endfunction
+inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
+inoremap <S-Tab> <C-n>
+
+set hidden
+
+
+nnoremap <silent> ho :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
 
 set laststatus=2 "always show the statusline
+" Stop messing with shift K... Or you know whatever!
+let g:go_doc_keywordprg_enabled = 0
+
+let g:javascript_plugin_flow = 1
+let g:flow#enable = 0
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

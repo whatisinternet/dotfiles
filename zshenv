@@ -1,9 +1,11 @@
+# Some areas of these dotfiles are clones from the thoughtbot dotifles https://github.com/thoughtbot/dotfiles used under MIT. See https://github.com/thoughtbot/dotfiles/blob/master/LICENSE
 # use vim as the visual editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR=$VISUAL
 
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*"'
 
 # load rbenv if available
 if which rbenv &>/dev/null ; then

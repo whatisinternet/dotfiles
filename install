@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+ln -sf  "${PWD}/zshrc" ~/.zshrc
+ln -sf  "${PWD}/zshenv" ~/.zshenv
+mkdir -p ~/.zsh
+mkdir -p ~/.zsh/functions
+ln -sf  "${PWD}/zsh/functions/g" ~/.zsh/functions/g
+
+mkdir -p ~/.bin
+ln -sf  "${PWD}/bin/git-up" ~/.bin/git-up
+
+ln -sf  "${PWD}/vimrc" ~/.vimrc
+ln -sf  "${PWD}/vimrc.bundles" ~/.vimrc.bundles
+
+ln -sf  "${PWD}/gemrc" ~/.gemrc
+
+ln -sf  "${PWD}/gitconfig" ~/.gitconfig
+ln -sf  "${PWD}/gitignore" ~/.gitignore
+
+ln -sf  "${PWD}/tmux.conf" ~/.tmux.conf
+
+if [ "$(uname)" == "Darwin" ]; then
+
+  if ! command -v rg &> /dev/null; then
+    brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git
+    brew install burntsushi/ripgrep/ripgrep-bin
+  else
+    echo "rg exists"
+  fi
+
+  if ! command -v nvim &> /dev/null; then
+    brew install neovim
+  else
+    echo "nvim exists"
+  fi
+
+  if ! command -v tmux &> /dev/null; then
+    brew install tmux
+  else
+    echo "tmux exists"
+  fi
+
+  if ! command -v node &> /dev/null; then
+    brew install node
+  else
+    echo "node exists"
+  fi
+
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  if ! command -v rg &> /dev/null; then
+    sudo apt-get install -y ripgrep
+  else
+    echo "rg exists"
+  fi
+
+  if ! command -v fzf &> /dev/null; then
+    sudo apt-get install -y fzf
+  else
+    echo "fzf exists"
+  fi
+
+  if ! command -v nvim &> /dev/null; then
+    sudo apt-get install -y neovim
+    # sudo apt-get install -y python-neovim
+    # sudo apt-get install -y python3-neovim
+  else
+    echo "nvim exists"
+  fi
+
+  if ! command -v tmux &> /dev/null; then
+    sudo apt-get install -y tmux
+  else
+    echo "tmux exists"
+  fi
+fi
+
+if [ ! -e $HOME/.vim/autoload/plug.vim ]; then
+  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+vim -u $HOME/.vimrc.bundles +PlugInstall +PlugClean! +qa
+
+ln -sf  "${PWD}/aliases" ~/.aliases
+mkdir -p ~/.config
+mkdir -p ~/.config/nvim
+cp  "${PWD}/nvim/coc-settings.json" ~/.config/nvim/coc-settings.json
+cp  "${PWD}/nvim/init.nvim" ~/.config/nvim/init.nvim

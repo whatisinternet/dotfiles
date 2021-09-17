@@ -1,3 +1,4 @@
+# Some areas of these dotfiles are clones from the thoughtbot dotifles https://github.com/thoughtbot/dotfiles used under MIT. See https://github.com/thoughtbot/dotfiles/blob/master/LICENSE
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
   current_branch=$(git current-branch 2> /dev/null)
@@ -13,7 +14,7 @@ setopt prompt_subst
 
 # prompt
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[white]%}on %{$reset_color%}%{$fg[magenta]%}%U"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[white]%}on %{$reset_color%}%{$fg[cyan]%}%U"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%U%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ✘%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -140,10 +141,9 @@ _load_settings() {
 }
 _load_settings "$HOME/.zsh/configs"
 
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
-# TMUX configs
-source ~/.bin/tmuxinator.zsh
-source $HOME/.cargo/env
 # Local config
+fpath+=${ZDOTDIR:-~}/.zsh_functions
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
