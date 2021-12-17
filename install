@@ -74,6 +74,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   fi
 fi
 
+cp  "${PWD}/nvim/init.nvim" ~/.config/nvim/init.vim
 if [ ! -e $HOME/.vim/autoload/plug.vim ]; then
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -84,4 +85,4 @@ ln -sf  "${PWD}/aliases" ~/.aliases
 mkdir -p ~/.config
 mkdir -p ~/.config/nvim
 cp  "${PWD}/nvim/coc-settings.json" ~/.config/nvim/coc-settings.json
-cp  "${PWD}/nvim/init.nvim" ~/.config/nvim/init.nvim
+cp  "${PWD}/nvim/init.nvim" ~/.config/nvim/init.vim
