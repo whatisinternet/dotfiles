@@ -22,13 +22,15 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'jparise/vim-graphql'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'deoplete-plugins/deoplete-tag'
-Plug 'fishbullet/deoplete-ruby'
 " Searching
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+"
+"Autocomplete
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 " Navigation
 Plug 'scrooloose/nerdtree'             " folder navigation ala most IDE setups
 Plug 'Xuyuanp/nerdtree-git-plugin'     " Adds git flags to files in nerd tree
@@ -41,6 +43,11 @@ Plug 'itchyny/lightline.vim'           " Adds a nice statusbar
 Plug 'shaunsingh/solarized.nvim' " Theme
 Plug 'craftzdog/solarized-osaka.nvim'
 Plug 'sonph-forks/lightline.vim'
+"
+" LSP
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 "
 " Git
 Plug 'tpope/vim-fugitive'              " The best git plugin
