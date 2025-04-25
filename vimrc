@@ -1,7 +1,23 @@
 " Some areas of these dotfiles are clones from the thoughtbot dotifles https://github.com/thoughtbot/dotfiles used under MIT. See https://github.com/thoughtbot/dotfiles/blob/master/LICENSE
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
 syntax on
 set ttyfast         " Smooth
-set background=dark "Default to dark -- don't worry it'll switch with auto-solarize-vim
+if &t_Co < 256
+    " colorscheme for the 8 color linux term
+    colorscheme vim
+else
+  set background=dark
+  if has('nvim')
+    set termguicolors
+    colorscheme solarized-osaka
+  else
+    set colorscheme=solarized
+    set termguicolors=true
+  endif
+endif
 let mapleader = "," "<space> is equally valid
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup      " Remove the useless ~backup file
@@ -27,7 +43,6 @@ set smarttab        " Tab in correctly.
 setlocal spell
 setlocal spell spelllang=en_ca
 set ttimeoutlen=50 " Make typing faster
-set pastetoggle=<F11> " Use <F11> to toggle between 'paste' and 'nopaste'
 set laststatus=1 "always show the statusline
 set regexpengine=1
 set re=1
@@ -172,7 +187,6 @@ let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 let g:pymode_folding = 0
 
 let g:lightline = {
-      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -198,11 +212,6 @@ filetype plugin indent on
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
-
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-
 
 " Remove trailing whitespace when a file is saved
 " Source: <http://vim.wikia.com/wiki/Remove_unwanted_spaces>

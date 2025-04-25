@@ -141,8 +141,6 @@ _load_settings() {
 }
 _load_settings "$HOME/.zsh/configs"
 
-# eval "$(rbenv init -)"
-
 # Local config
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
