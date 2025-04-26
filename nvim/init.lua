@@ -6,6 +6,41 @@ vim.opt.packpath = vim.opt.runtimepath:get()
 -- Source the old .vimrc (if needed)
 vim.cmd("source ~/.vimrc")
 
+local languages = {
+  'c',
+  'diff',
+  'json',
+  'lua',
+  'markdown',
+  'markdown_inline',
+  'python',
+  'ruby',
+  'rust',
+  'sql',
+  'toml',
+  'tsx',
+  'vim',
+  'yaml',
+}
+
+require('nvim-treesitter.configs').setup({
+  ensure_installed = languages,
+  auto_install = true,
+  sync_install = true,
+  hihlight = { enable = true },
+  indent = { enable = false },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<S-space>',
+    }
+  },
+  endwise = { enable = false },
+})
+
 -- Setup Mason
 require("mason").setup()
 local cmp = require('cmp')
@@ -41,6 +76,8 @@ cmp.setup({
     format = function(entry, item)
       local short_name = {
         nvim_lsp = "[LSP]",
+        treesitter = "[Tree]",
+        rg = "[RG]",
         buffer = "[Buffer]",
         path = "[Path]",
       }
@@ -53,6 +90,24 @@ cmp.setup({
   },
   sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      {
+        name = 'treesitter',
+        option = {
+          complete_defer = 100,
+          max_items = 10,
+          exact_match = false,
+          current_buffer_only = false,
+        },
+      },
+      {
+        name = 'rg',
+        option = {
+          complete_defer = 100,
+          max_items = 10,
+          exact_match = false,
+          current_buffer_only = false,
+        },
+      },
       {
         name = 'buffer',
         option = {

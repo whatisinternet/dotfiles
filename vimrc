@@ -291,7 +291,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Use FZF for ctrlp ctrl-p ag
-nnoremap <c-p> :FILES<cr>
+" nnoremap <c-p> :FILES<cr>
 nmap <C-L> :RGFILES<CR>
 let g:fzf_layout = { 'down': '~15%' }
 " nnoremap <c-p> :Files<cr>
@@ -309,7 +309,7 @@ endif
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" noremap <c-p> :Files<cr>
+noremap <c-p> :Files<cr>
 let g:fzf_layout = { 'down': '~15%' }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
