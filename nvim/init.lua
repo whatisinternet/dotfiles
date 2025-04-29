@@ -6,9 +6,44 @@ vim.opt.packpath = vim.opt.runtimepath:get()
 -- Source the old .vimrc (if needed)
 vim.cmd("source ~/.vimrc")
 
+if os.getenv("USE_LOCAL_AI") == "1"  then
+  require('avante').setup({
+    provider = "ollama",
+    ollama = {
+      model = os.getenv("OLLAMA_MODEL"),
+      endpoint = "http://" .. os.getenv("OLLAMA_HOST") .. ":11434",
+      timeout = 30000,
+      temperature = 0.2,
+      max_completion_tokens = 8192,
+    },
+    vendors = {
+      ["ollama"] = {
+        __inherited_from = "openai",
+        api_key_name = "",
+        endpoint = "http://" .. os.getenv("OLLAMA_HOST") .. ":11434/v1",
+        model = os.getenv("OLLAMA_MODEL"),
+        max_tokens = 32768,
+        disable_tools = false,
+      },
+    },
+    auto_suggestions_provider = "ollama",
+    behaviour = {
+      auto_set_highlight_group = true,
+      auto_set_keymaps = true,
+      auto_apply_diff_after_generation = false,
+      support_paste_from_clipboard = true,
+      minimize_diff = false, -- Whether to remove unchanged lines when applying a code block
+      enable_token_counting = true, -- Whether to enable token counting. Default to true.
+    },
+  })
+end
+
 local languages = {
   'c',
+  'caddy',
   'diff',
+  'dockerfile',
+  'jinja',
   'json',
   'lua',
   'markdown',
@@ -90,6 +125,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'nvim_lsp_signature_help' },
       {
         name = 'treesitter',
         option = {

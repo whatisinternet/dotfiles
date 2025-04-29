@@ -8,6 +8,14 @@ call plug#begin('~/.vim/bundle')
 
 " Define bundles via Github repos
 "
+" LLM
+if (has('nvim') || getenv('FORCE_NVIM_BUNDLES') == '1') && getenv('USE_LOCAL_AI') == '1'
+  Plug 'stevearc/dressing.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
+  Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+endif
 " language
 Plug 'pangloss/vim-javascript'
 Plug 'thoughtbot/vim-rspec'
@@ -34,6 +42,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ray-x/cmp-treesitter'
 Plug 'lukas-reineke/cmp-rg'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 " Navigation
 Plug 'scrooloose/nerdtree'             " folder navigation ala most IDE setups
 Plug 'Xuyuanp/nerdtree-git-plugin'     " Adds git flags to files in nerd tree

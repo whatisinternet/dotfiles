@@ -2,6 +2,8 @@
 
 ln -sf  "${PWD}/zshrc" ~/.zshrc
 ln -sf  "${PWD}/zshenv" ~/.zshenv
+source ~/.zshenv
+echo $USE_LOCAL_AI
 mkdir -p ~/.zsh
 mkdir -p ~/.zsh/functions
 ln -sf  "${PWD}/zsh/functions/g" ~/.zsh/functions/g
