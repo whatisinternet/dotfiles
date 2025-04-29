@@ -3,7 +3,7 @@ vim.opt.runtimepath:prepend(vim.fn.expand("~/.vim"))
 vim.opt.runtimepath:append(vim.fn.expand("~/.vim/after"))
 vim.opt.packpath = vim.opt.runtimepath:get()
 
--- Source the old .vimrc (if needed)
+require('config.lazy')
 vim.cmd("source ~/.vimrc")
 
 if os.getenv("USE_LOCAL_AI") == "1"  then
@@ -44,7 +44,7 @@ local languages = {
   'diff',
   'dockerfile',
   'jinja',
-  'json',
+  'json5',
   'lua',
   'markdown',
   'markdown_inline',
@@ -90,8 +90,8 @@ cmp.setup({
   },
   window = {
     documentation = {
-      max_height = 15,
-      max_width = 60,
+      max_height = 25,
+      max_width = 90,
     }
   },
   mapping = cmp.mapping.preset.insert({
@@ -159,11 +159,20 @@ cmp.setup({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 require("mason-lspconfig").setup({
-  ensure_installed = { "clangd", "ruby_lsp", "lua_ls", "rust_analyzer", "yamlls",  },
+  ensure_installed = {
+    "clangd",
+    "lua_ls",
+    "ruby_lsp",
+    "rust_analyzer",
+    "yamlls",
+    'rubocop',
+  },
   handlers = {
     function(server_name)
       -- require('lspconfig')[server_name].setup({})
-      require('lspconfig')[server_name].setup({capabilities = capabilities,})
+      require('lspconfig')[server_name].setup({
+        capabilities = capabilities,
+      })
     end,
   },
 })

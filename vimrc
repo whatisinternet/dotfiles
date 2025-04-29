@@ -1,8 +1,4 @@
 " Some areas of these dotfiles are clones from the thoughtbot dotifles https://github.com/thoughtbot/dotfiles used under MIT. See https://github.com/thoughtbot/dotfiles/blob/master/LICENSE
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-
 syntax on
 set ttyfast         " Smooth
 if &t_Co < 256

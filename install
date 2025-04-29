@@ -77,14 +77,19 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 cp  "${PWD}/nvim/init.lua" ~/.config/nvim/init.lua
-if [ ! -e $HOME/.vim/autoload/plug.vim ]; then
-  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-vim -u $HOME/.vimrc.bundles +PlugInstall +PlugClean! +qa
+# if [ ! -e $HOME/.vim/autoload/plug.vim ]; then
+#   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+#       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# fi
+# vim -u $HOME/.vimrc.bundles +PlugInstall +PlugClean! +qa
 
 ln -sf  "${PWD}/aliases" ~/.aliases
 mkdir -p ~/.config
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/lua
+mkdir -p ~/.config/nvim/lua/config
+mkdir -p ~/.config/nvim/lua/plugins
 rm ~/.config/nvim/init.vim
 cp  "${PWD}/nvim/init.lua" ~/.config/nvim/init.lua
+cp  "${PWD}/nvim/lua/config/lazy.lua" ~/.config/nvim/lua/config/lazy.lua
+cp  "${PWD}/nvim/lua/plugins/init.lua" ~/.config/nvim/lua/plugins/init.lua
